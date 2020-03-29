@@ -22,7 +22,7 @@ namespace DistributedId.Web.Repositories
         public async Task<SequencedIdBuffer> GetBufferAsync(string businessId)
         {
             SequencedIdEntity sequencedId = null;
-            using (var trans = await _idStoreContext.Database.BeginTransactionAsync())
+            using (var trans = await _idStoreContext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
             {
                 sequencedId = _idStoreContext.SequencedIds.FirstOrDefault(x => x.BusinessId == businessId);
                 if (sequencedId == null)
@@ -30,6 +30,7 @@ namespace DistributedId.Web.Repositories
                     //创建默认记录
                     sequencedId = GetNewEntity(businessId);
                     _idStoreContext.SequencedIds.Add(sequencedId);
+                    _idStoreContext.SaveChanges();
                     sequencedId = _idStoreContext.SequencedIds.FirstOrDefault(x => x.BusinessId == businessId);
                 }
                 long newMaxId = sequencedId.MaxId + sequencedId.Steps;

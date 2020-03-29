@@ -18,8 +18,8 @@ namespace DistributedId.Web.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<SequencedIdEntity>()
-                .Property<byte[]>("RowVersion").IsRowVersion();
+            //modelBuilder.Entity<SequencedIdEntity>()
+            //    .Property<byte[]>("RowVersion").IsRowVersion();
         }
     }
 }

@@ -46,10 +46,10 @@ namespace DistributedId.Web.Models
         public DateTime CreateTime { get; set; }
         public DateTime UpdateTime { get; set; }
 
-        /// <summary>
-        /// 并发冲突检查字段，EFCore
-        /// </summary>
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        ///// <summary>
+        ///// 并发冲突检查字段，EFCore
+        ///// </summary>
+        //[Timestamp]
+        //public byte[] RowVersion { get; set; }
     }
 }

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DistributedId.Core;
 using DistributedId.Web.Data;
+using DistributedId.Web.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,8 +32,9 @@ namespace DistributedId.Web
             services.AddControllers();
 
             services.AddDbContext<IdStoreContext>(options => {
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
+            services.AddTransient<ISequencedIdStore, SequenceIdRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
