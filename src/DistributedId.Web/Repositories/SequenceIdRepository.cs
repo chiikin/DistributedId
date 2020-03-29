@@ -22,7 +22,7 @@ namespace DistributedId.Web.Repositories
         public async Task<SequencedIdBuffer> GetBufferAsync(string businessId)
         {
             SequencedIdEntity sequencedId = null;
-            using (var trans = await _idStoreContext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable))
+            using (var trans = await _idStoreContext.Database.BeginTransactionAsync(System.Data.IsolationLevel.RepeatableRead))
             {
                 sequencedId = _idStoreContext.SequencedIds.FirstOrDefault(x => x.BusinessId == businessId);
                 if (sequencedId == null)
